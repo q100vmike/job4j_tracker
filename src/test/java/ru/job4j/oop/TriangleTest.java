@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 
 class TriangleTest {
     @Test
-    void calcAreaTriangle24dot5() {
+    void whenAreaTriangle24dot5() {
         double expected = 24.5;
         Point a = new Point(0, 10);
         Point b = new Point(1, 1);
@@ -16,7 +16,7 @@ class TriangleTest {
     }
 
     @Test
-    void calcAreaTriangleNotValid() {
+    void whenAreaTriangleNotValid() {
         double expected = -1;
         Point a = new Point(0, 10);
         Point b = new Point(0, 0);
