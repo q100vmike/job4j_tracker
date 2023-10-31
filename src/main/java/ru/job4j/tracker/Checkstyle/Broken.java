@@ -3,7 +3,7 @@ package ru.job4j.tracker.checkstyle;
 public class Broken {
     private int sizeOfEmpty = 1;
     private String surname;
-    private static final String NEWVALUE = "";
+    private static final String NEWVALUE = "тест";
     private String name;
 
     public Broken() {
