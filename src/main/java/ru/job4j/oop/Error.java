@@ -25,7 +25,6 @@ public class Error {
         Error errorOne = new Error(true, 2, "errorOne");
         Error errorTwo = new Error(false, 100, "errorTwo");
         Error errorThree = new Error(true, 777, "errorThree");
-
         errorOne.show();
         errorTwo.show();
         errorThree.show();
