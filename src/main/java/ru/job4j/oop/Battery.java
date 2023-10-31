@@ -21,7 +21,6 @@ public class Battery {
         Battery second = new Battery(30);
         System.out.println("First." + first.about());
         System.out.println("Second." + second.about());
-
         first.exchange(second);
         System.out.println("First." + first.about());
         System.out.println("Second." + second.about());
