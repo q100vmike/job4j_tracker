@@ -4,19 +4,11 @@ import java.util.Objects;
 
 public class Library {
     public static void main(String[] args) {
-        Book book1 = new Book();
-        Book book2 = new Book();
-        Book book3 = new Book();
-        Book book4 = new Book();
+        Book book1 = new Book("Пушкин", 100);
+        Book book2 = new Book("Гоголь", 546);
+        Book book3 = new Book("Clean code", 1000);
+        Book book4 = new Book("Java", 435);
         Book[] books = new Book[4];
-        book1.setName("Пушкин");
-        book1.setLetter(100);
-        book2.setName("Гоголь");
-        book2.setLetter(398);
-        book3.setName("Clean code");
-        book3.setLetter(1000);
-        book4.setName("Java");
-        book4.setLetter(390);
         books[0] = book1;
         books[1] = book2;
         books[2] = book3;

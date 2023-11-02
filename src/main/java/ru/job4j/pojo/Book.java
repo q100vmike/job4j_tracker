@@ -4,6 +4,11 @@ public class Book {
     private String name;
     private int letter;
 
+    public Book(String name, int letter) {
+        this.name = name;
+        this.letter = letter;
+    }
+
     public String getName() {
         return name;
     }
