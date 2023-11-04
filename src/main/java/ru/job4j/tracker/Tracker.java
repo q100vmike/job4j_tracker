@@ -40,7 +40,6 @@ public class Tracker {
         if (rsl) {
             item.setId(id);
             items[index] = item;
-            return true;
         }
         return rsl;
     }
