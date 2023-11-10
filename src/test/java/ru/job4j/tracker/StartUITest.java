@@ -48,7 +48,7 @@ class StartUITest {
         Item item = tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         Input in = new MockInput(
-                new String[] {"0", String.valueOf(tracker.findByName("Replaced item")[0].getId()), replacedName, "1"}
+                new String[] {"0", String.valueOf(item.getId()), replacedName, "1"}
         );
         UserAction[] actions = {
                 new ReplaceAction(out),
@@ -104,12 +104,10 @@ class StartUITest {
 
     @Test
     void whenFindAllActionTestOutputIsSuccessfully() {
-        LocalDateTime created = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
-        tracker.add(new Item("test1"));
-        tracker.add(new Item("test2"));
+        Item item1 = tracker.add(new Item("test1"));
+        Item item2 = tracker.add(new Item("test2"));
         Input in = new MockInput(
                 new String[] {"0", "1"}
         );
@@ -123,8 +121,8 @@ class StartUITest {
                 "Меню:" + ln
                         + "0. Показать все заявки" + ln
                         + "1. Завершить программу" + ln
-                        + "Item{id=1, name='test1', created=" + created.format(formatter) + "}" + ln
-                        + "Item{id=2, name='test2', created=" + created.format(formatter) + "}" + ln
+                        + item1.toString() + ln
+                        + item2.toString() + ln
                         + "Меню:" + ln
                         + "0. Показать все заявки" + ln
                         + "1. Завершить программу" + ln
@@ -134,12 +132,10 @@ class StartUITest {
 
     @Test
     void whenFindByNameActionTestOutputIsSuccessfully() {
-        LocalDateTime created = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
         tracker.add(new Item("test1"));
-        tracker.add(new Item("test2"));
+        Item item2 = tracker.add(new Item("test2"));
         tracker.add(new Item("test3"));
         Input in = new MockInput(
                 new String[] {"0", "test2", "1"}
@@ -155,7 +151,7 @@ class StartUITest {
                         + "0. Показать заявки по имени" + ln
                         + "1. Завершить программу" + ln
                         + "=== Вывод заявок по имени ===" + ln
-                        + "Item{id=2, name='test2', created=" + created.format(formatter) + "}" + ln
+                        + item2.toString() + ln
                         + "Меню:" + ln
                         + "0. Показать заявки по имени" + ln
                         + "1. Завершить программу" + ln
@@ -165,8 +161,6 @@ class StartUITest {
 
     @Test
     void whenFindByIdActionTestOutputIsSuccessfully() {
-        LocalDateTime created = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
         tracker.add(new Item("test1"));
@@ -186,7 +180,7 @@ class StartUITest {
                         + "0. Показать заявку по id" + ln
                         + "1. Завершить программу" + ln
                         + "=== Вывод заявки по id ===" + ln
-                        + "Item{id=2, name='test2', created=" + created.format(formatter) + "}" + ln
+                        + item.toString() + ln
                         + "Меню:" + ln
                         + "0. Показать заявку по id" + ln
                         + "1. Завершить программу" + ln
