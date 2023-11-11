@@ -15,4 +15,16 @@ class FactTest {
                 });
         assertThat(exception.getMessage()).isEqualTo("N could not be less than 0");
     }
+
+    @Test
+    public void whenNoException() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    new Fact().calc(-1);
+                });
+        Fact fact = new Fact();
+        int expected = 3628800;
+        assertThat(fact.calc(10)).isEqualTo(expected);
+    }
 }
