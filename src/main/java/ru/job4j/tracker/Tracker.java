@@ -7,14 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Tracker {
-    //private final Item[] items = new Item[100];
     private final List<Item> items = new ArrayList<>();
     private int ids = 1;
     private int size = 0;
 
     public Item add(Item item) {
         item.setId(ids++);
-        //items[size++] = item;
         size++;
         items.add(item);
         return item;
@@ -30,15 +28,6 @@ public class Tracker {
     }
 
     public List<Item> findByName(String key) {
-     /*   int i = 0;
-        Item[] resitems = new Item[size];
-        for (int index = 0; index < size; index++) {
-            if (items.get(index).getName().equals(key)) {
-                resitems[i] = items.get(index);
-                i++;
-            }
-        }
-        return List.copyOf(resitems);*/
         List<Item> resitems = new ArrayList<>();
         for (Item item : items) {
             if (item.getName().equals(key)) {
@@ -73,8 +62,6 @@ public class Tracker {
         int index = indexOf(id);
         boolean rsl = index != -1;
         if (rsl) {
-            //System.arraycopy(items, index + 1, items, index, size - index - 1);
-            //items[size - 1] = null;
             size--;
             items.remove(index);
         }
