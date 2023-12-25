@@ -15,8 +15,8 @@ public class ReconstructPhrase {
 
     private String getEvenElements() {
         StringBuilder str = new StringBuilder();
-        int j = evenElements.size();
-        for (int i = 0; i < j; i++) {
+        int size = evenElements.size();
+        for (int i = 0; i < size; i++) {
             if (i % 2 == 0) {
                 str.append(evenElements.poll().charValue());
             } else {
@@ -28,8 +28,8 @@ public class ReconstructPhrase {
 
     private String getDescendingElements() {
         StringBuilder str = new StringBuilder();
-        int j = descendingElements.size();
-        for (int i = 0; i < j; i++) {
+        int size = descendingElements.size();
+        for (int i = 0; i < size; i++) {
             str.append(descendingElements.pollLast().charValue());
         }
         return str.toString();
