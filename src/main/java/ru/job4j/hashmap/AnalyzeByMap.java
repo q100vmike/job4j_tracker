@@ -29,23 +29,14 @@ public class AnalyzeByMap {
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
         List<Label> labels = new ArrayList<>();
         HashMap<String, Double> distinctSubjects = new HashMap<>();
-        double score = 0;
-        int piple = 0;
 
         for (Pupil pupil : pupils) {
-            piple++;
            for (Subject subj : pupil.subjects()) {
-               if (distinctSubjects.containsKey(subj.name())) {
-                   score = distinctSubjects.get(subj.name());
-                   distinctSubjects.remove(subj.name());
-               }
-               distinctSubjects.putIfAbsent(subj.name(), score + subj.score());
-               score = 0;
+               distinctSubjects.put(subj.name(), distinctSubjects.getOrDefault(subj.name(), 0D) + subj.score());
             }
         }
         for (String key: distinctSubjects.keySet()) {
-            double sc = distinctSubjects.get(key) / piple;
-            labels.add(new Label(key, sc));
+            labels.add(new Label(key, distinctSubjects.get(key) / pupils.size()));
         }
         return labels;
     }
@@ -67,21 +58,14 @@ public class AnalyzeByMap {
     public static Label bestSubject(List<Pupil> pupils) {
         List<Label> labels = new ArrayList<>();
         HashMap<String, Double> distinctSubjects = new HashMap<>();
-        double score = 0;
 
         for (Pupil pupil : pupils) {
             for (Subject subj : pupil.subjects()) {
-                if (distinctSubjects.containsKey(subj.name())) {
-                    score = distinctSubjects.get(subj.name());
-                    distinctSubjects.remove(subj.name());
-                }
-                distinctSubjects.putIfAbsent(subj.name(), score + subj.score());
-                score = 0;
+                distinctSubjects.put(subj.name(), distinctSubjects.getOrDefault(subj.name(), 0D) + subj.score());
             }
         }
         for (String key : distinctSubjects.keySet()) {
-            double sc = distinctSubjects.get(key);
-            labels.add(new Label(key, sc));
+            labels.add(new Label(key, distinctSubjects.get(key)));
         }
         labels.sort(Comparator.naturalOrder());
         return labels.get(labels.size() - 1);
