@@ -5,7 +5,6 @@ import java.util.Comparator;
 public class StringCompare implements Comparator<String> {
     @Override
     public int compare(String left, String right) {
-        //int i = left.length() >= right.length() ? right.length() : left.length();
         int result = 0;
 
         for (int j = 0; j < left.length(); j++) {
