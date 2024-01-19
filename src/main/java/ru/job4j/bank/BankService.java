@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class BankService {
     /**
-     * Map хранит пользователя и его счета
+     * Map хранит пользователя User и его счета Account
      */
     private final Map<User, List<Account>> users = new HashMap<>();
 
