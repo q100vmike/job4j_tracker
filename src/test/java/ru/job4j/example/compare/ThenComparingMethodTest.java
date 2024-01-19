@@ -22,7 +22,6 @@ public class ThenComparingMethodTest {
         List<ThenComparingMethod.User> input = Arrays.asList(user1, user2, user3, user4, user5);
         List<ThenComparingMethod.User> expect = Arrays.asList(user3, user5, user2, user4, user1);
         input.sort(ThenComparingMethod.thenComparing());
-      //  assertEquals(expect, input);
     }
 
 }
