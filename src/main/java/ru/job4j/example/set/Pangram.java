@@ -11,6 +11,9 @@ public class Pangram {
         for (int i = 0; i < s.length(); i++) {
             letter.add(s.charAt(i));
         }
-        return (letter.size() == 26) ? true : false;
+        if (letter.size() == 26) {
+            return true;
+        }
+        return false;
     }
 }
