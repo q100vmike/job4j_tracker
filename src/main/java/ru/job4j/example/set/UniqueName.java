@@ -7,8 +7,11 @@ import java.util.Set;
 
 public class UniqueName {
     public static int collectUniqueName(List<User> users) {
-
-        return -1;
+        Set<String> user = new HashSet<>();
+        for (User name : users) {
+            user.add(name.getName());
+        }
+        return user.size();
     }
 
     public static class User {
