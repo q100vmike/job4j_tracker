@@ -10,15 +10,10 @@ public class Departments {
         for (String value : departments) {
             String start = "";
             for (String element : value.split("/")) {
-                 if (start.equals("")) {
-                    temp.add(element);
-                     start = element;
-                } else {
-                    start += "/" + element;
-                    temp.add(start);
+                start = start.equals("") ? start.concat(element) : start.concat("/" + element);
+                temp.add(start);
                 }
             }
-        }
         return new ArrayList<>(temp);
     }
 
