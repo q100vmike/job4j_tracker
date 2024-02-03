@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class FI {
-    @SuppressWarnings("checkstyle:NoWhitespaceBefore")
+
     public static void main(String[] args) {
         Attachment[] attachments = {
                 new Attachment("image 1", 20),
