@@ -30,10 +30,9 @@ public class AnalyzeByMap {
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
         List<Label> labels = new ArrayList<>();
         HashMap<String, Double> distinctSubjects = new HashMap<>();
-        BiFunction<Double, Double, Double> function = (oldValue, newValue) -> oldValue + newValue;
 
         for (Pupil pupil : pupils) {
-           pupil.subjects().forEach((key)  -> distinctSubjects.merge(key.name(), (double) key.score(), function));
+           pupil.subjects().forEach((key)  -> distinctSubjects.merge(key.name(), (double) key.score(), (oldValue, newValue) -> oldValue + newValue));
         }
         for (String key: distinctSubjects.keySet()) {
             labels.add(new Label(key, distinctSubjects.get(key) / pupils.size()));
