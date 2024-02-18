@@ -54,4 +54,13 @@ public class Task3Test {
         var result = Task3.extractDuplicates(left, right);
         assertThat(result, is(expected));
     }
+
+    @Test
+    public void whenRightDuplicateTwo() {
+        var right = List.of(1, 2, 3);
+        var left = List.of(1, 2, 2, 2);
+        var expected = List.of(1, 2, 3);
+        var result = Task3.extractDuplicates(left, right);
+        assertThat(result, is(expected));
+    }
 }
