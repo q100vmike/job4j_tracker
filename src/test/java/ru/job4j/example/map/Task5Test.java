@@ -23,6 +23,7 @@ public class Task5Test {
 
     @Test
     public void whenOnlyUnique() {
+
         var input = List.of(
                 new Task5.Task(1, 1),
                 new Task5.Task(1, 2),
