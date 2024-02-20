@@ -63,8 +63,9 @@ public class ArticleTest {
                 is(true)
         );
     }
+
     @Test
-    public void whenLongTextFalse() {
+        public void whenLongTextFalse() {
         assertThat(
                 Article.generateBy(
                         "Мой дядя самых честных правил, "
