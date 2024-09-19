@@ -97,29 +97,4 @@ class MatrixIteratorTest  {
         MatrixIterator iterator = new MatrixIterator(input);
         assertThat(iterator.hasNext()).isFalse();
     }
-/*
-    @Test
-    void testferst() {
-        int[][] input = {
-                {11, 22, 33}, {}, {44}
-        };
-        List<Integer> list = new ArrayList<>();
-        MatrixIterator iterator = new MatrixIterator(input);
-        iterator.hasNext();
-        int one = iterator.next();
-        iterator.hasNext();
-        iterator.hasNext();
-       // int one = iterator.next();
-        list.add(one);
-        int two = iterator.next();
-        list.add(two);
-        iterator.hasNext();
-        iterator.hasNext();
-        int three = iterator.next();
-        list.add(three);
-        int four = iterator.next();
-        list.add(four);
-        int five = iterator.next();
-        assertThat(iterator.hasNext()).isFalse();
-    }*/
 }
