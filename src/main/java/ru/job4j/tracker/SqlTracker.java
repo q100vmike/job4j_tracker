@@ -74,7 +74,7 @@ public class SqlTracker implements Store {
         try (PreparedStatement statement =
                      connection.prepareStatement("UPDATE item SET name = ? WHERE id = ?")) {
             statement.setString(1, item.getName());
-            statement.setInt(2, item.getId());
+            statement.setInt(2, id);
             result = statement.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,7 +134,7 @@ public class SqlTracker implements Store {
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM item WHERE id = ?")) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.first()) {
+                if (resultSet.next()) {
                     item.setId(resultSet.getInt("id"));
                     item.setName(resultSet.getString("name"));
                     item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
