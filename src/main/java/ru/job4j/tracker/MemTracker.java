@@ -62,6 +62,11 @@ public class MemTracker implements Store {
     }
 
     @Override
+    public void clear() {
+
+    }
+
+    @Override
     public void close() throws Exception {
 
     }

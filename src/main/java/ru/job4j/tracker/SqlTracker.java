@@ -38,6 +38,16 @@ public class SqlTracker implements Store {
     }
 
     @Override
+    public void clear() {
+        try (PreparedStatement statement =
+                     connection.prepareStatement("DELETE FROM item")) {
+            statement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void close() throws SQLException {
         if (connection != null) {
             connection.close();

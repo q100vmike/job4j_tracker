@@ -15,7 +15,7 @@ class StartUITest {
         Input in = new MockInput(
                 new String[] {"33", "0"}
         );
-        MemTracker tracker = new MemTracker();
+        Store tracker = new SqlTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new Exit(out));
 
@@ -37,7 +37,7 @@ class StartUITest {
         Input in = new MockInput(
                 new String[] {"0"}
         );
-        MemTracker tracker = new MemTracker();
+        Store tracker = new SqlTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new Exit(out));
 
@@ -55,19 +55,19 @@ class StartUITest {
         Input in = new MockInput(
                 new String[]{"0", "Item name", "1"}
         );
-        MemTracker tracker = new MemTracker();
+        Store tracker = new SqlTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new Create(out));
         actions.add(new Exit(out));
 
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
+        assertThat(tracker.findByName("Item name").get(0).getName()).isEqualTo("Item name");
     }
 
     @Test
     void whenReplaceItem() {
         Output out = new StubOutput();
-        MemTracker tracker = new MemTracker();
+        Store tracker = new SqlTracker();
         Item item = tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         Input in = new MockInput(
@@ -84,7 +84,7 @@ class StartUITest {
     @Test
     void whenDeleteItem() {
         Output out = new StubOutput();
-        MemTracker tracker = new MemTracker();
+        Store tracker = new SqlTracker();
         Item item = tracker.add(new Item("Deleted item"));
         Input in = new MockInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
@@ -94,13 +94,13 @@ class StartUITest {
         actions.add(new Exit(out));
 
         new StartUI(out).init(in, tracker, actions);
-        assertThat(tracker.findById(item.getId())).isNull();
+        assertThat(tracker.findByName("Deleted item").size() == 0);
     }
 
     @Test
     void whenReplaceItemTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        MemTracker tracker = new MemTracker();
+        Store tracker = new SqlTracker();
         Item one = tracker.add(new Item("test1"));
         String replaceName = "New Test Name";
         Input in = new MockInput(
@@ -128,7 +128,8 @@ class StartUITest {
     @Test
     void whenFindAllActionTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        MemTracker tracker = new MemTracker();
+        Store tracker = new SqlTracker();
+        tracker.clear();
         Item item1 = tracker.add(new Item("test1"));
         Item item2 = tracker.add(new Item("test2"));
         Input in = new MockInput(
@@ -156,7 +157,8 @@ class StartUITest {
     @Test
     void whenFindByNameActionTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        MemTracker tracker = new MemTracker();
+        Store tracker = new SqlTracker();
+        tracker.clear();
         tracker.add(new Item("test1"));
         Item item2 = tracker.add(new Item("test2"));
         tracker.add(new Item("test3"));
@@ -185,7 +187,7 @@ class StartUITest {
     @Test
     void whenFindByIdActionTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        MemTracker tracker = new MemTracker();
+        Store tracker = new SqlTracker();
         tracker.add(new Item("test1"));
         Item item = tracker.add(new Item("test2"));
         tracker.add(new Item("test3"));
