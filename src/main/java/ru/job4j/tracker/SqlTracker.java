@@ -37,6 +37,10 @@ public class SqlTracker implements Store {
         }
     }
 
+    private Item getItem() {
+        return new Item();
+    }
+
     @Override
     public void clear() {
         try (PreparedStatement statement =
@@ -140,7 +144,8 @@ public class SqlTracker implements Store {
 
     @Override
     public Item findById(int id) {
-        Item item = new Item();
+        //Item item = new Item();
+        Item item = this.getItem();
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM item WHERE id = ?")) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
