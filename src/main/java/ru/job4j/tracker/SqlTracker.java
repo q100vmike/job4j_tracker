@@ -37,8 +37,10 @@ public class SqlTracker implements Store {
         }
     }
 
-    private Item getItem() {
-        return new Item();
+    private Item getItemFromRS(ResultSet resultSet) throws SQLException {
+        return new Item(resultSet.getInt("id"),
+                resultSet.getString("name"),
+                resultSet.getTimestamp("created").toLocalDateTime());
     }
 
     @Override
@@ -73,7 +75,7 @@ public class SqlTracker implements Store {
             statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    return new Item(generatedKeys.getInt(1), item.getName());
+                    return getItemFromRS(generatedKeys);
                 }
             }
         } catch (Exception e) {
@@ -113,9 +115,7 @@ public class SqlTracker implements Store {
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM item")) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    list.add(new Item(resultSet.getInt("id"),
-                            resultSet.getString("name"),
-                            resultSet.getTimestamp("created").toLocalDateTime()));
+                    list.add(getItemFromRS(resultSet));
                 }
             }
         } catch (Exception e) {
@@ -131,9 +131,7 @@ public class SqlTracker implements Store {
             statement.setString(1, key);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    list.add(new Item(resultSet.getInt("id"),
-                            resultSet.getString("name"),
-                            resultSet.getTimestamp("created").toLocalDateTime()));
+                    list.add(getItemFromRS(resultSet));
                 }
             }
         } catch (Exception e) {
@@ -144,14 +142,12 @@ public class SqlTracker implements Store {
 
     @Override
     public Item findById(int id) {
-        Item item = this.getItem();
+        Item item = null;
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM item WHERE id = ?")) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    item.setId(resultSet.getInt("id"));
-                    item.setName(resultSet.getString("name"));
-                    item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
+                    item = getItemFromRS(resultSet);
                 }
             }
         } catch (Exception e) {
