@@ -15,7 +15,7 @@ class StartUITest {
         Input in = new MockInput(
                 new String[] {"33", "0"}
         );
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new Exit(out));
 
@@ -37,7 +37,7 @@ class StartUITest {
         Input in = new MockInput(
                 new String[] {"0"}
         );
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new Exit(out));
 
@@ -55,7 +55,7 @@ class StartUITest {
         Input in = new MockInput(
                 new String[]{"0", "Item name", "1"}
         );
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         List<UserAction> actions = new ArrayList<>();
         actions.add(new Create(out));
         actions.add(new Exit(out));
@@ -67,7 +67,7 @@ class StartUITest {
     @Test
     void whenReplaceItem() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         Item item = tracker.add(new Item("Replaced item"));
         String replacedName = "New item name";
         Input in = new MockInput(
@@ -84,7 +84,7 @@ class StartUITest {
     @Test
     void whenDeleteItem() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         Item item = tracker.add(new Item("Deleted item"));
         Input in = new MockInput(
                 new String[] {"0", String.valueOf(item.getId()), "1"}
@@ -100,7 +100,7 @@ class StartUITest {
     @Test
     void whenReplaceItemTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         Item one = tracker.add(new Item("test1"));
         String replaceName = "New Test Name";
         Input in = new MockInput(
@@ -128,8 +128,7 @@ class StartUITest {
     @Test
     void whenFindAllActionTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
-        tracker.clear();
+        Store tracker = new MemTracker();
         Item item1 = tracker.add(new Item("test1"));
         Item item2 = tracker.add(new Item("test2"));
         Input in = new MockInput(
@@ -157,8 +156,7 @@ class StartUITest {
     @Test
     void whenFindByNameActionTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
-        tracker.clear();
+        Store tracker = new MemTracker();
         tracker.add(new Item("test1"));
         Item item2 = tracker.add(new Item("test2"));
         tracker.add(new Item("test3"));
@@ -187,7 +185,7 @@ class StartUITest {
     @Test
     void whenFindByIdActionTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        Store tracker = new SqlTracker();
+        Store tracker = new MemTracker();
         tracker.add(new Item("test1"));
         Item item = tracker.add(new Item("test2"));
         tracker.add(new Item("test3"));
