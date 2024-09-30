@@ -46,7 +46,7 @@ public class SqlTracker implements Store {
     @Override
     public void clear() {
         try (PreparedStatement statement =
-                     connection.prepareStatement("DELETE FROM item")) {
+                     connection.prepareStatement("DELETE FROM items")) {
             statement.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class SqlTracker implements Store {
         Timestamp timestampFromLDT = Timestamp.valueOf(localDateTime);
 
         try (PreparedStatement statement =
-                     connection.prepareStatement("INSERT INTO item(name, created) VALUES (?, ?)",
+                     connection.prepareStatement("INSERT INTO items(name, created) VALUES (?, ?)",
                              Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, timestampFromLDT);
@@ -88,7 +88,7 @@ public class SqlTracker implements Store {
     public boolean replace(int id, Item item) {
         boolean result = false;
         try (PreparedStatement statement =
-                     connection.prepareStatement("UPDATE item SET name = ? WHERE id = ?")) {
+                     connection.prepareStatement("UPDATE items SET name = ? WHERE id = ?")) {
             statement.setString(1, item.getName());
             statement.setInt(2, id);
             result = statement.executeUpdate() > 0;
@@ -101,7 +101,7 @@ public class SqlTracker implements Store {
     @Override
     public void delete(int id) {
         try (PreparedStatement statement =
-                     connection.prepareStatement("DELETE FROM item WHERE id = ?")) {
+                     connection.prepareStatement("DELETE FROM items WHERE id = ?")) {
             statement.setInt(1, id);
             statement.execute();
         } catch (Exception e) {
@@ -112,7 +112,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findAll() {
         List<Item> list = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM item")) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM items")) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     list.add(getItemFromRS(resultSet));
@@ -127,7 +127,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findByName(String key) {
         List<Item> list = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM item WHERE name = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE name = ?")) {
             statement.setString(1, key);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -143,7 +143,7 @@ public class SqlTracker implements Store {
     @Override
     public Item findById(int id) {
         Item item = null;
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM item WHERE id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE id = ?")) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
