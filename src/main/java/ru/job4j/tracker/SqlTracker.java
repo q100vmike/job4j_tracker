@@ -62,26 +62,21 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        long millis = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(millis);
-        LocalDateTime localDateTime = timestamp.toLocalDateTime();
-        Timestamp timestampFromLDT = Timestamp.valueOf(localDateTime);
-
         try (PreparedStatement statement =
                      connection.prepareStatement("INSERT INTO items(name, created) VALUES (?, ?)",
                              Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
-            statement.setTimestamp(2, timestampFromLDT);
+            statement.setString(2, String.valueOf(item.getCreated()));
             statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    return getItemFromRS(generatedKeys);
+                    item.setId(generatedKeys.getInt(1));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return item;
     }
 
     @Override
