@@ -40,6 +40,8 @@ public class StartUI {
         Input input = new ValidateInput(output, new ConsoleInput());
         Store tracker = new MemTracker();
         List<UserAction> actions = Arrays.asList(
+            new CreateManyItems(output),
+            new DeleteAllItems(output),
             new Create(output),
             new FindAll(output),
             new Replace(output),
