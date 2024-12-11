@@ -1,0 +1,42 @@
+Профилировал jmap (jmap -hist 8892)
+1. создал 1234500 объектов
+вывод jmap
+   1:       1245576       60436112  [B (java.base@17.0.10)
+   2:       1253666       30087984  java.time.LocalDateTime (java.base@17.0.10)
+   3:       1253539       30084936  java.time.LocalTime (java.base@17.0.10)
+   4:       1244741       29873784  java.lang.String (java.base@17.0.10)
+   5:       1234592       29630208  java.time.LocalDate (java.base@17.0.10)
+   6:       1234500       29628000  ru.job4j.tracker.Item
+
+в строке 5 видим что создано 1234500 Item которые занимают 29мб памяти
+Поскольку Item у нас это Int + String + LocalDateTime  то выше видим что создалось
+примерно столько же строк и дат (почему то больше на самом деле?).
+
+2. добавил еще 2 000 000 заявок.
+   1:       3245569      156427888  [B (java.base@17.0.10)
+   2:       3244741       77873784  java.lang.String (java.base@17.0.10)
+   3:       3234654       77631696  java.time.LocalDateTime (java.base@17.0.10)
+   4:       3234592       77630208  java.time.LocalDate (java.base@17.0.10)
+   5:       3234527       77628648  java.time.LocalTime (java.base@17.0.10)
+   6:       3234500       77628000  ru.job4j.tracker.Item
+
+видим что добавилось 2млн объектов и памяти уже 77мб
+
+3. удалил все
+вывод jmap не изменился. видимо надо ждать работы GC для очистки памяти??
+
+4. добавил 1234500
+   1:       1245598       60449408  [B (java.base@17.0.8)
+   2:       1244770       29874480  java.lang.String (java.base@17.0.8)
+   3:       1234654       29631696  java.time.LocalDateTime (java.base@17.0.8)
+   4:       1234592       29630208  java.time.LocalDate (java.base@17.0.8)
+   5:       1234527       29628648  java.time.LocalTime (java.base@17.0.8)
+   6:       1234500       29628000  ru.job4j.tracker.Item
+
+видимо перезаписались
+
+5. Выход за границы памяти
+добавил 100000000
+=== Create many items ===
+Введите кол-во заявок 100000000
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space: failed reallocation of scalar replaced objects
